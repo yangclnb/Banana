@@ -1,4 +1,4 @@
 # YancDrag
 A simple MVVM framework
 
-So far, only one-way binding has been implemented
+So far, only two-way binding has been implemented
