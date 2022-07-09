@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .banana{
+            text-align: center;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h2 b-bind:class="className">Hi~ my name is [_ personalInfo.name_]</h2>
+        <input type="text" b-model="personalInfo.name">
+        <ul>
+            <li>Name: [_personalInfo.name_] / Age: [_personalInfo.age_]</li>
+            <ul>
+                <li>[_personalInfo.name_]</li>
+                <li>b</li>
+                <ul>
+                    <li>[_userList[0]_]</li>
+                    <li>[_userList[1]_]</li>
+                </ul>
+            </ul>
+            <li>[_personalInfo.age_]</li>
+        </ul>
+
+        <div>
+            <h2 b-bind:class="className">[_personalInfo.age_]</h2>
+        </div>
+
+        <div>
+            <div>
+                <div>
+                    <b>[_personalInfo.testDeep.testArray[0]_]</b>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <script src="../src/Yancdrag.js"></script>
+    <script>
+        let yan = new YancDrag({
+            el: "#app",
+            data: {
+                personalInfo: {
+                    name: "杨晨龙",
+                    age: 20,
+                    testArray:["test"],
+                    testDeep:{
+                        testArray:["test222"]
+                    }
+                },
+                userList:["BananaBoat","BananaReform"],
+                text: "test",
+                className:"banana"
+            }
+        });
+    </script>
+</body>
+
+</html>
