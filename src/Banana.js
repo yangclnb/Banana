@@ -1,5 +1,5 @@
 //框架基类
-class YancDrag {
+class Banana {
     constructor(element) {
         this.el = this.getRootElement(element.el);
         this.data = element.data;
