@@ -5,7 +5,8 @@ So far, only two-way binding has been implemented
 
 
 How to use?
-··· JavaScript
+
+``` JavaScript
 
 let yang = new Banana({
             el: "#app",
@@ -24,4 +25,4 @@ let yang = new Banana({
             }
         });
         
-···
+```
