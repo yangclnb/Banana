@@ -18,13 +18,11 @@
 ### 如何使用?
 
 ``` javascript
-let yang = new Banana({
-            //框架入口
+ let yang = new Banana({
             el: "#app",
-            //数据对象
             data: {
                 personalInfo: {
-                    name: "Bananareform",
+                    name: "杨晨龙",
                     age: 20,
                     testArray: ["test"],
                     testDeep: {
@@ -35,7 +33,6 @@ let yang = new Banana({
                 text: "test",
                 className: "banana"
             },
-            //方法对象
             methods: {
                 changeName() {
                     // console.log('from:changeName this.personalInfo :>> ', this.personalInfo);
@@ -49,5 +46,4 @@ let yang = new Banana({
                 }
             }
         });
-
 ```
