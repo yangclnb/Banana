@@ -1,4 +1,53 @@
 # Banana
-A simple MVVM framework
+--- 
+### A simple MVVM framework
+### 一个简单的MVVM框架
 
-So far, only two-way binding has been implemented
+### Realize functions
+1. Data bidirectional binding B-Model
+2. Data and attribute binding b-bind
+3. Interpolation input [_ value _]
+
+### 实现功能
+1. 数据双向绑定         b-model
+2. 数据与属性绑定       b-bind
+3. 插值输入             [_ value _]
+
+
+### How to use?
+### 如何使用?
+
+``` javascript
+let yang = new Banana({
+            //框架入口
+            el: "#app",
+            //数据对象
+            data: {
+                personalInfo: {
+                    name: "Bananareform",
+                    age: 20,
+                    testArray: ["test"],
+                    testDeep: {
+                        testArray: ["test222"]
+                    }
+                },
+                userList: ["BananaBoat", "BananaReform"],
+                text: "test",
+                className: "banana"
+            },
+            //方法对象
+            methods: {
+                changeName() {
+                    // console.log('from:changeName this.personalInfo :>> ', this.personalInfo);
+                    this.personalInfo.name = "test";
+                },
+                addUserAge() {
+                    this.personalInfo.age++;
+                },
+                test() {
+                    alert();
+                }
+            }
+        });
+
+```
