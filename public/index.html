@@ -7,10 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        .banana{
+        .banana {
             text-align: center;
         }
-
     </style>
 </head>
 
@@ -18,6 +17,7 @@
     <div id="app">
         <h2 b-bind:class="className">Hi~ my name is [_ personalInfo.name_]</h2>
         <input type="text" b-model="personalInfo.name">
+        <button b-bind:click="changeName()">changeName()</button>
         <ul>
             <li>Name: [_personalInfo.name_] / Age: [_personalInfo.age_]</li>
             <ul>
@@ -42,7 +42,7 @@
                 </div>
             </div>
         </div>
-        
+
     </div>
     <script src="../src/Banana.js"></script>
     <script>
@@ -50,16 +50,28 @@
             el: "#app",
             data: {
                 personalInfo: {
-                    name: "杨晨龙",
+                    name: "Bananareform",
                     age: 20,
-                    testArray:["test"],
-                    testDeep:{
-                        testArray:["test222"]
+                    testArray: ["test"],
+                    testDeep: {
+                        testArray: ["test222"]
                     }
                 },
-                userList:["BananaBoat","BananaReform"],
+                userList: ["BananaBoat", "BananaReform"],
                 text: "test",
-                className:"banana"
+                className: "banana"
+            },
+            methods: {
+                changeName() {
+                    // console.log('from:changeName this.personalInfo :>> ', this.personalInfo);
+                    this.personalInfo.name = "test";
+                },
+                addUserAge() {
+                    this.personalInfo.age++;
+                },
+                test() {
+                    alert();
+                }
             }
         });
     </script>
