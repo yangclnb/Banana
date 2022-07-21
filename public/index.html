@@ -7,40 +7,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        #app div{
+            margin: auto;
+        }
+
         .banana {
-            text-align: center;
+            color: grey;
+            border: 3px solid grey;
+            border-radius: 20px;
+            padding: 10px;
         }
     </style>
 </head>
 
 <body>
     <div id="app">
-        <h2 b-bind:class="className">Hi~ my name is [_ personalInfo.name_]</h2>
-        <input type="text" b-model="personalInfo.name">
-        <button b-bind:click="changeName()">changeName()</button>
-        <ul>
-            <li>Name: [_personalInfo.name_] / Age: [_personalInfo.age_]</li>
-            <ul>
-                <li>[_personalInfo.name_]</li>
-                <li>b</li>
-                <ul>
-                    <li>[_userList[0]_]</li>
-                    <li>[_userList[1]_]</li>
-                </ul>
-            </ul>
-            <li>[_personalInfo.age_]</li>
-        </ul>
-
-        <div>
-            <h2 b-bind:class="className">[_personalInfo.age_]</h2>
-        </div>
-
-        <div>
-            <div>
+        <div
+            style="width: 600px;background-color: rgb(93, 209, 170);padding: 20px;display: flex;flex-direction: column;align-items: center;color: antiquewhite;margin-bottom:50px ;border-radius: 20px;">
+            <h2>双重绑定</h2>
+            <div style="display: flex;justify-content: space-around; width:100%;">
                 <div>
-                    <b>[_personalInfo.testDeep.testArray[0]_]</b>
+                    <p>姓名:[_ personalInfo.name_]</p>
+                    <input type="text" b-model="personalInfo.name" placeholder="更改用户名">
+                </div>
+                <div>
+                    <p>年龄:[_personalInfo.age_]</p>
+                    <input type="text" b-model="personalInfo.age" placeholder="更改用户名">
                 </div>
             </div>
+        </div>
+
+        <div
+            style="width: 600px;background-color: rgb(93, 209, 170);padding: 20px;display: flex;flex-direction: column;align-items: center;color: antiquewhite;margin-bottom:50px ;border-radius: 20px;">
+            <h2>绑定属性</h2>
+            <h2 b-bind:class="className">Hi~ my name is [_ personalInfo.name_]</h2>
+        </div>
+
+        <div
+            style="width: 600px;background-color: rgb(93, 209, 170);padding: 20px;display: flex;flex-direction: column;align-items: center;color: antiquewhite;margin-bottom:50px ;border-radius: 20px;">
+            <h2>绑定方法</h2>
+            <div style="display: flex;justify-content: space-around; width:100%;">
+                <button style="padding: 10px;border-radius: 20px; border: 1px solid gray;" b-bind:click="changeName()">改变姓名</button>
+                <button style="padding: 10px;border-radius: 20px; border: 1px solid gray;" b-bind:click="addUserAge()">增加年龄</button>
+            </div>
+
         </div>
 
     </div>
@@ -50,7 +60,7 @@
             el: "#app",
             data: {
                 personalInfo: {
-                    name: "Bananareform",
+                    name: "杨晨龙",
                     age: 20,
                     testArray: ["test"],
                     testDeep: {

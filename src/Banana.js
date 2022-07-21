@@ -78,11 +78,12 @@ class HijackingData {
                 return value;
             },
             set: (newValue) => {
-                console.log('dep :>> ', dep);
+                // console.log('dep :>> ', dep);
                 // console.log('设置 :>> ', newValue);
                 if (value != newValue) {
                     value = newValue;
-                    console.log('value,newVal :>> ', value + " , " + newValue);
+
+                    // console.log('value,newVal :>> ', value + " , " + newValue);
 
                     //更新观察者
                     dep.notify();
@@ -106,13 +107,13 @@ class Dep {
     }
     addWatcher(watcher) {
         let isOnly = true;
-        for(let item of this.watchList){
-            if(item == watcher){
+        for (let item of this.watchList) {
+            if (item == watcher) {
                 isOnly = false;
             }
         }
 
-        if(isOnly)
+        if (isOnly)
             this.watchList.push(watcher);
     }
     notify() {
@@ -206,7 +207,7 @@ class Compile {
                 // console.log('name.slice(0,-3) :>> ', arrayName);
                 // console.log('arrayName[arrayIndex] :>> ', arrayName +"["+arrayIndex+"]");
                 result = result[arrayName][arrayIndex];
-                console.log(result);
+                // console.log(result);
             }
         }
         // console.log(name, result);
@@ -275,7 +276,6 @@ class Compile {
             });
         },
 
-
         //替换插值
         replaceContent: (node, data) => {
             let contentOrigin = node.textContent;
@@ -292,12 +292,24 @@ class Compile {
                 //添加guan'cha'zhe
                 new Watcher(this.data, handleName, (oldVal, newValue) => {
 
-                    let replaceList = contentOrigin.match(/\[\_(.+?)\_\]/g);
-                    for (let i in replaceList) {
-                        originalContent = contentOrigin;
-                        content = originalContent.replaceAll(matchList[item], newValue);
-                        node.textContent = content;
-                    }
+                    Compiler.replaceAgain(node, data, contentOrigin);
+
+                    // let replaceList = contentOrigin.match(/\[\_(.+?)\_\]/g);
+                    // let originNodeEl = contentOrigin;
+                    // for (let i in replaceList) {
+
+                    //     // originalContent = contentOrigin;
+                    //     // content = originalContent.replaceAll(matchList[item], newValue);
+                    //     // node.textContent = content;
+                    //     handleName = replaceList[i].slice(2, -2).trim();
+                    //     getVal = this.getCurrentVal(data, handleName);
+                    //     content = originNodeEl.replaceAll(replaceList[i], getVal);
+
+                    //     console.log('replaceList[i] :>> ', replaceList[i], i);
+                    //     console.log('getVal , handleName :>> ', getVal, handleName);
+                    //     console.log('content :>> ', content);
+                    // }
+                    // node.textContent = content;
                 });
 
                 // console.log(item,getVal,content);
@@ -311,13 +323,13 @@ class Compile {
                 node.value = this.getCurrentVal(data, attrVal);
 
                 new Watcher(this.data, attrVal, (oldVal, newValue) => {
-                    console.log('b-modle newValue :>> ', oldVal, newValue);
+                    // console.log('b-modle newValue :>> ', oldVal, newValue);
                     node.value = this.getCurrentVal(data, attrVal);
                 })
 
                 node.addEventListener("input", (e) => {
                     let value = e.target.value;
-                    Compiler.setCurrentVal(data,attrVal,value);
+                    Compiler.setCurrentVal(data, attrVal, value);
                 })
             },
             //b-bind
@@ -370,9 +382,7 @@ class HandleMethods {
         click: (node, methodName) => {
             console.log('methodName :>> ', methodName.slice(0, -2));
 
-
             // this.getMethod(methodName.slice(0, -2)).call(this.data);
-
 
             node.addEventListener("click", () => {
                 this.getMethod(methodName.slice(0, -2)).call(this.data);
@@ -389,7 +399,6 @@ class HandleMethods {
 let Compiler = {
     //获取数据
     getCurrentVal(data, name) {
-
         //取对象
         let nameList = name.split('.');
         let result = data;
@@ -420,10 +429,30 @@ let Compiler = {
     },
     setCurrentVal(vm, expr, value) {
         expr.split(".").reduce((data, current, index, arr) => {
-            if(index == arr.length-1){
+            if (index == arr.length - 1) {
                 return data[current] = value;
             }
             return data[current];
-        },vm);
+        }, vm);
+    }, 
+    //替换插值
+    replaceAgain: (node, data, Origin) => {
+        let matchList = Origin.match(/\[\_(.+?)\_\]/g);
+        node.textContent = Origin;
+
+        // console.log(matchList);
+        for (let item in matchList) {
+            let handleName = matchList[item].slice(2, -2).trim();
+            let getVal = Compiler.getCurrentVal(data, handleName);
+            let originalContent = node.innerHTML;
+            content = originalContent.replaceAll(matchList[item], getVal);
+
+            // console.log('replaceList[i] :>> ', matchList[item], item);
+            // console.log('getVal , handleName :>> ', getVal, handleName);
+            // console.log('content :>> ', content);
+
+            // console.log(item,getVal,content);
+            node.textContent = content;
+        }
     }
 }
